@@ -1,4 +1,4 @@
-package CalculatorSimplexe;
+package calculatorSimplex;
 
 public class MatriceSimplexe {
 	
@@ -7,5 +7,4 @@ public class MatriceSimplexe {
 	}
 	
 	// Attribute
-	private int _nbCondition;
 }
