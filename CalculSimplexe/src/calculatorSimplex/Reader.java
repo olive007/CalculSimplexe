@@ -21,15 +21,15 @@ public class Reader {
 		Scanner in = new Scanner(System.in);
 		
 		do {
-			Controller.out.write("Entrer un chrifre pour sélectioner l'action: ");
+			System.out.print("Entrer un chrifre pour sélectioner l'action: ");
 			if (in.hasNextInt()) {
 				res = in.nextInt();
 				if (res < 0 || res > 9) {
-					Controller.out.error("Ceci n'est pas un chriffre");					
+					System.err.println("Ceci n'est pas un chriffre");					
 				}
 			}
 			else {
-				Controller.out.error("Ceci n'est pas un chriffre");
+				System.err.println("Ceci n'est pas un chriffre");
 				in.nextLine();
 			}
 		}

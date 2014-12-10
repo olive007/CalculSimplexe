@@ -35,16 +35,20 @@ public class Menu extends Entry {
 		return _entrys.length;
 	}
 	
+	public Entry getEntry(int i) {
+		if (i < 0 && i >= _entrys.length) {
+			return null;
+		}
+		return _entrys[i];
+	}
+	
 	// Method
 	public void displayEntry() {
-		Controller.out.write("[" + getNb() + "] Sous-Menu: " + getName() + "\n");
+		Controller.out.writeEntry(this);
 	}
 	
 	public void display() {
-		Controller.out.write(getName() + "\n");
-		for (int i = 0; i < _entrys.length; i++) {
-			_entrys[i].displayEntry();
-		}
+		Controller.out.writeMenu(this);
 	}
 	
 	public int doAction() {
@@ -65,7 +69,7 @@ public class Menu extends Entry {
 				}
 			}
 			if (i == _entrys.length) {
-				Controller.out.error("Mauvais chriffre !!!");
+				Controller.out.writeError("Mauvais chriffre !!!");
 			}
 		} while (!exit);
 		return error;

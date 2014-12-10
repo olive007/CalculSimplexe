@@ -10,11 +10,11 @@ public class Controller {
 	
 	// Method
 	public boolean init() {
-		out.write("--- Calculator Symplexe ---\n");
-		out.write("Démarrage...\n");
+		out.writeString("--- Calculator Symplexe ---\n");
+		out.writeString("Démarrage...\n");
 		try {
 			_mainMenu = new Menu("Menu Principal",
-					new Entry("Calculer", new CalculLive()),
+					new Entry("Effectuer un calcul", new CalculLive()),
 					new Menu("Afficher les données",
 							new Entry("TXT", new DisplayResultTXT()),
 							new Entry("XML", new DisplayResultXML())));
@@ -29,15 +29,12 @@ public class Controller {
 	public int loop() {
 		int error = 0;
 		
-		while (true) {
-			_mainMenu.doAction();
-			break;
-		}
+		error = _mainMenu.doAction();
 		return error;
 	}
 	
 	public void close() {
-		out.write("Fermeture du programme...\n");
+		out.writeString("Fermeture du programme...\n");
 	}
 	
 	// Attribute

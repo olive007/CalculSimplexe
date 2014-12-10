@@ -45,7 +45,7 @@ public class Entry{
 	
 	// Method
 	public void displayEntry() {
-		Controller.out.write("[" + _nb + "] " + _name + "\n");
+		Controller.out.writeEntry(this);
 	}
 	
 	public int doAction() {
