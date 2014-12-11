@@ -32,7 +32,7 @@ public class Writer {
 	}
 	
 	// Method write file
-	public boolean writeTxtFile(String filename, MatriceSimplexe matrice) {
+	public boolean writeTxtFile(String filename, MatriceSimplex matrice) {
 		ObjectOutputStream out = null;
 		
 		try {
