@@ -18,14 +18,26 @@ import calculatorSimplex.MatriceSimplex;
 
 public class TestAlgorithmSimplex {
 	
-	private static List<Double> _coefficiants;
-	private static List<List<Double>> _contraintes;
+	private  List<Double> _coefficiants;
+	private  List<List<Double>> _contraintes;
 	private MatriceSimplex _objMat;
 	private ArrayList<ArrayList<Double>> _matrice;
 	
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		
+		
+	}
+
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+		
+	}
+
+	@Before
+	public void setUp() throws Exception {
+	
 		_coefficiants = new ArrayList<>();
 		_contraintes = new ArrayList<List<Double>>();
 		
@@ -38,17 +50,6 @@ public class TestAlgorithmSimplex {
 		_contraintes.get(0).add(3.);_contraintes.get(0).add(2.);_contraintes.get(0).add(4.);_contraintes.get(0).add(18.);
 		_contraintes.get(1).add(4.);_contraintes.get(1).add(1.);_contraintes.get(1).add(2.);_contraintes.get(1).add(24.);
 		_contraintes.get(2).add(1.);_contraintes.get(2).add(1.);_contraintes.get(2).add(3.);_contraintes.get(2).add(12.);
-		
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-		_coefficiants = null;
-		_contraintes = null;
-	}
-
-	@Before
-	public void setUp() throws Exception {
 	
 		_objMat = new MatriceSimplex(_coefficiants, _contraintes);
 		_matrice =(ArrayList<ArrayList<Double>>)Explorateur.getField(_objMat, "_matrice");
@@ -57,6 +58,8 @@ public class TestAlgorithmSimplex {
 
 	@After
 	public void tearDown() throws Exception {
+		_coefficiants = null;
+		_contraintes = null;
 		_objMat = null;
 		_matrice = null;
 	}
@@ -67,14 +70,33 @@ public class TestAlgorithmSimplex {
 	}
 
 	@Test
-	public void TestRechercherColonnePivot(){
+	public void testSearchColumnPivot(){
 		//fail("Not yet implemented");
-		int colPivot;
-		List<Double> lastLine = new ArrayList<Double>(7);
-		lastLine.add(5.);lastLine.add(6.);lastLine.add(7.);lastLine.add(0.);lastLine.add(0.);lastLine.add(0.);lastLine.add(0.);
-		colPivot = AlgorithmSimplex.rechercherColonnePivot(_objMat);
-		assertTrue(colPivot==2);
+		assertTrue(AlgorithmSimplex.searchColumnPivot(_objMat)==2);
 		
+	}
+	
+	@Test
+	public void testSearchLinePivot(){
+		//fail("Not yet implemented");
+		assertTrue(AlgorithmSimplex.searchLinePivot(_objMat,2)==2);
+	}
+	
+	@Test
+	public void testCalculPivot(){
+		//fail("Not yet implemented");
+		assertTrue(AlgorithmSimplex.calculPivot(_objMat,2,2)==3);
+	}
+	
+	@Test
+	public void testSetPivotUnit(){
+		int indLinePivot = 2;
+		int indColPivot = 2;
+		List<Double> linePivot = new ArrayList<Double>();
+		linePivot.add(1./3.);linePivot.add(1./3.);linePivot.add(1.);
+		linePivot.add(0.);linePivot.add(0.);linePivot.add(1./3.);linePivot.add(4.);
+		AlgorithmSimplex.setPivotUnit(_objMat, indLinePivot, indColPivot);
+		assertTrue(_matrice.get(2).containsAll(linePivot));
 	}
 	
 }
