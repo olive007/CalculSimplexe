@@ -71,15 +71,14 @@ public  abstract class AlgorithmSimplex {
 		}
 	}
 	
-	public static void SubstTwoLine(MatriceSimplex objMat, int indLinePivot, int indColPivot){
+	public static void SubstTwoLine(MatriceSimplex objMat,int indLine, int indLinePivot, int indColPivot){
 		double pivot = calculPivot(objMat, indLinePivot, indColPivot);
+		double member2 = objMat.getElement(indLine, indColPivot) * objMat.getElement(indLinePivot, indColPivot);
+		double newElem;
 		
-		for(int i=0; i<=objMat.getNbline()-1; i++){
-			if(i != indLinePivot){
-				
-			}
+		for(int j=0; j<=objMat.getNbcolumn()-1; j++){
+			objMat.setElement(indLine, j, objMat.getElement(indLine, j) - member2);
 		}
-		
 	}
 	
 	
