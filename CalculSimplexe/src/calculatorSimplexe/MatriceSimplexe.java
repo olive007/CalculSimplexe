@@ -55,7 +55,7 @@ public class MatriceSimplexe implements Serializable {
 	
 	
 	/**
-	 * Méthode qui permet de cloner un objet matrice
+	 * Mï¿½thode qui permet de cloner un objet matrice
 	 * @param mat
 	 * @return mat
 	 */
