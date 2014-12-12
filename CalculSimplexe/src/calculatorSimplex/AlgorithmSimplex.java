@@ -71,7 +71,16 @@ public  abstract class AlgorithmSimplex {
 		}
 	}
 	
-	public static void addTwoLine(int indLine)
+	public static void SubstTwoLine(MatriceSimplex objMat, int indLinePivot, int indColPivot){
+		double pivot = calculPivot(objMat, indLinePivot, indColPivot);
+		
+		for(int i=0; i<=objMat.getNbline()-1; i++){
+			if(i != indLinePivot){
+				
+			}
+		}
+		
+	}
 	
 	
 	
