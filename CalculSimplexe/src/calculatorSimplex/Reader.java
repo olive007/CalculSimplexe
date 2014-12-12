@@ -34,6 +34,7 @@ public class Reader {
 			}
 		}
 		while (res < 0 || res > 9);
+		in.close();
 		return res;
 	}
 }

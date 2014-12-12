@@ -1,7 +1,6 @@
 package calculatorSimplex;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public abstract class AlgorithmSimplex {
 	
@@ -10,15 +9,16 @@ public abstract class AlgorithmSimplex {
 	
 	
 	// Method
-	static public MatriceSimplex[] calcul(MatriceSimplex matrice) {
-		ArrayList<MatriceSimplex> res = new ArrayList<MatriceSimplex>();
+	static public MatrixSimplex[] calcul(MatrixSimplex matrice) {
+		ArrayList<MatrixSimplex> res = new ArrayList<MatrixSimplex>();
 		
+		searchPivotLine(matrice);
 		res.add(matrice);
 		
-		return (MatriceSimplex[]) res.toArray();
+		return (MatrixSimplex[]) res.toArray();
 	}
 	
-	static private int searchPivotColumn(MatriceSimplex matrice) {
+	static private int searchPivotColumn(MatrixSimplex matrice) {
 		int res = 0;
 		Double[] lastColumn = matrice.getLastColumn();
 		
@@ -36,7 +36,7 @@ public abstract class AlgorithmSimplex {
 	}
 	
 
-	static private int searchPivotLine(MatriceSimplex matrice) {
+	static private int searchPivotLine(MatrixSimplex matrice) {
 		Double[] pivotColumn = matrice.getColumn(searchPivotColumn(matrice));
 		Double[] lastColumn = matrice.getLastColumn();
 		

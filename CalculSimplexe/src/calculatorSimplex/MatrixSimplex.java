@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MatriceSimplex implements Serializable {
+public class MatrixSimplex implements Serializable {
 	
 	/**
 	 * Version alpha
@@ -13,25 +13,36 @@ public class MatriceSimplex implements Serializable {
 	private static final long serialVersionUID = 5370224255246835399L;
 
 	// Constructor
-	public MatriceSimplex(List<Double> coefficiant, List<List<Double>> contrainte) {
+	public MatrixSimplex(List<Double> coefficiant, List<List<Double>> constraint) throws WrongMatrixSimplexException {
+		_matrice = new ArrayList<ArrayList<Double>>();
 		_n = coefficiant.size();
-		_m = contrainte.size();
+		_m = constraint.size();
 		
+		if (_n != constraint.get(0).size() - 1) {
+			throw new WrongMatrixSimplexException();
+		}
 		int tmp = 0;
 		for (int i = 0; i < _m; i++) {
-			_matrice.add(i, new ArrayList<Double>());
-			for (int j = 0; j < contrainte.get(i).size() - 2; j++) {
-				_matrice.get(i).add(j, contrainte.get(i).get(j));
+			_matrice.add(new ArrayList<Double>());
+			 for (int j = 0; j < _n; j++) {
+				_matrice.get(i).add(new Double(constraint.get(i).get(j)));
 			}
-			for (int j = 0; j < _m - 1; j++) {
-				_matrice.get(i).add(j + _m - 1, (tmp == j) ? 1. : 0.);
+			for (int j = 0; j < _m; j++) {
+				_matrice.get(i).add((tmp == j) ? 1. : 0.);
 			}
 			tmp++;
-			_matrice.get(i).add(contrainte.get(i).get(contrainte.get(i).size() - 1));
+			_matrice.get(i).add(new Double(constraint.get(i).get(_n)));
+		}
+		_matrice.add(new ArrayList<Double>());
+		for (int i = 0; i < coefficiant.size(); i++) {
+			_matrice.get(_m).add(new Double(coefficiant.get(i)));
+		}
+		for (int i = 0; i < _m + 1; i++) {
+			_matrice.get(_m).add(0.);
 		}
 	}
 	
-	private MatriceSimplex(MatriceSimplex src) {
+	private MatrixSimplex(MatrixSimplex src) {
 		for (int i = 0; i < _matrice.size(); i++) {
 			_matrice.add(new ArrayList<Double>(src._matrice.get(i)));
 		}
@@ -55,22 +66,25 @@ public class MatriceSimplex implements Serializable {
 	}
 	
 	public Double[] getLine(int index) {
-		if (index < 0 && index >= _matrice.size()) {
+		if (index < 0 && index >= _matrice.get(index).size()) {
 			return null;
 		}
-		return (Double[]) _matrice.get(index).toArray();
+		Double[] res = new Double[_matrice.get(index).size()];
+		
+		_matrice.get(index).toArray(res);
+		return res;
 	}
 	
 	public Double[] getLastLine() {
-		return getLine(_matrice.size() - 1);
+		return getLine(_matrice.get(0).size() - 1);
 	}
 	
 	public Double[] getColumn(int index) {
-		if (index < 0 && index >= _matrice.get(0).size()) {
+		if (index < 0 && index >= _matrice.size()) {
 			return null;
 		}
 		
-		Double[] res = new Double[_matrice.get(0).size()];
+		Double[] res = new Double[_matrice.size()];
 		for (int i = 0; i < _matrice.size() - 1; i++) {
 			for (int j = 0; j < res.length; j++) {
 				res[j] = _matrice.get(i).get(index);
@@ -80,13 +94,13 @@ public class MatriceSimplex implements Serializable {
 	}
 	
 	public Double[] getLastColumn() {
-		return getColumn(_matrice.get(0).size() - 1);
+		return getColumn(_matrice.size() - 1);
 	}
 	
 	public Double[] getVarInBase() {
 		Double[] res = new Double[_m + _n];
 		
-		for (int i = 0; i < _m + _n - 1; i++) {
+		for (int i = 0; i < _m + _n; i++) {
 			res[i] = 0.;
 			Double[] column = getColumn(i);
 			
@@ -124,8 +138,8 @@ public class MatriceSimplex implements Serializable {
 	}
 	
 	// Method
-	public MatriceSimplex clone() {
-		return new MatriceSimplex(this);
+	public MatrixSimplex clone() {
+		return new MatrixSimplex(this);
 	}
 	
 	// Attribute

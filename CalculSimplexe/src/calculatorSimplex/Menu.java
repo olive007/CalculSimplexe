@@ -4,9 +4,13 @@ public class Menu extends Entry {
 	
 	// Constructor
 	public Menu(String name, Entry ... entrys) throws WrongEntryException {
-		setNb(0);
+		this(0, name, entrys);
+	}
+	
+	public Menu(int nb, String name, Entry ... entrys) throws WrongEntryException {
+		setNb(nb);
 		setName(name);
-		_entrys = new Entry[entrys.length + 1];
+		_entrys = new Entry[entrys.length];
 		if (entrys.length > 9) {
 			throw new WrongEntryException();
 		}
@@ -22,12 +26,6 @@ public class Menu extends Entry {
 			}
 			tmp = i;
 		}
-		_entrys[entrys.length] = new Entry(9, "Retour", null);
-	}
-	
-	public Menu(int nb, String name, Entry ... entrys) throws WrongEntryException {
-		this(name, entrys);
-		setNb(nb);
 	}
 	
 	// Getter

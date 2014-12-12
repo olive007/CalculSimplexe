@@ -17,7 +17,9 @@ public class Controller {
 					new Entry("Effectuer un calcul", new CalculLive()),
 					new Menu("Afficher les données",
 							new Entry("TXT", new DisplayResultTXT()),
-							new Entry("XML", new DisplayResultXML())));
+							new Entry("XML", new DisplayResultXML()),
+							new Entry(9, "Retour")),
+					new Entry(9, "Quiter"));
 		}
 		catch (WrongEntryException e) {
 			e.printStackTrace();

@@ -7,10 +7,16 @@ public class Entry{
 		
 	}
 	
+	public Entry(String name) throws WrongEntryException {
+		this(0, name, null);
+	}
+	
 	public Entry(String name, EntryInterface action) throws WrongEntryException {
-		setNb(0);
-		setName(name);
-		_interface = action;
+		this(0, name, action);
+	}
+	
+	public Entry(int nb, String name) throws WrongEntryException {
+		this(nb, name, null);
 	}
 	
 	public Entry(int nb, String name, EntryInterface action) throws WrongEntryException {
