@@ -168,6 +168,7 @@ public class TestMatrixSimplex {
 		assertTrue(false);
 	}
 	
+	
 	// Attribute
 	private List<Double> _coefficiants;
 	private List<List<Double>> _constraints;
