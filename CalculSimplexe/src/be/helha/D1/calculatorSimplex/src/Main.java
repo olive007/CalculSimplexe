@@ -1,4 +1,6 @@
-package calculatorSimplex;
+package be.helha.D1.calculatorSimplex.src;
+
+import be.helha.D1.calculatorSimplex.src.utility.Controller;
 
 public class Main {
 
@@ -11,6 +13,6 @@ public class Main {
 		}
 		controller.close();
 		System.exit(error);
-		}
+	}
 
 }

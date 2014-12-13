@@ -1,7 +1,11 @@
-package calculatorSimplex;
+package be.helha.D1.calculatorSimplex.src.utility;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import be.helha.D1.calculatorSimplex.src.exception.WrongEntryException;
+import be.helha.D1.calculatorSimplex.src.exception.WrongMatrixSimplexException;
+import be.helha.D1.calculatorSimplex.src.model.MatrixSimplex;
 
 public class CalculLive implements EntryInterface {
 

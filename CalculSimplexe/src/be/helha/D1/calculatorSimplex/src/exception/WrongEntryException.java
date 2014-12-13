@@ -1,4 +1,4 @@
-package calculatorSimplex;
+package be.helha.D1.calculatorSimplex.src.exception;
 
 public class WrongEntryException extends Exception {
 

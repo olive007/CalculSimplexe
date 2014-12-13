@@ -1,4 +1,4 @@
-package calculatorSimplex;
+package be.helha.D1.calculatorSimplex.src.utility;
 
 public interface EntryInterface {
 	

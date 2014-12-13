@@ -1,4 +1,4 @@
-package calculatorSimplex;
+package be.helha.D1.calculatorSimplex.src.view;
 
 import java.util.Scanner;
 
