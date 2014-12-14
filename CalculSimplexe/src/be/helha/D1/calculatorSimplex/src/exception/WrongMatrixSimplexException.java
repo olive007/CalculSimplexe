@@ -8,4 +8,8 @@ public class WrongMatrixSimplexException extends Exception {
 	 */
 	private static final long serialVersionUID = -339581876617983895L;
 
+	public WrongMatrixSimplexException(String string) {
+		super(string);
+	}
+	
 }

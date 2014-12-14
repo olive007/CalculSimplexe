@@ -33,8 +33,8 @@ public class Writer {
 		}
 	}
 	
-	public void writeMatrice(MatrixSimplex matrice) {
-		System.out.println(matrice.toString());
+	public void writeMatrix(MatrixSimplex matrix) {
+		System.out.println(matrix.toString());
 	}
 
 	public void writeError(String str) {

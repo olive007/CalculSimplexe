@@ -53,7 +53,7 @@ public class TestMatrixSimplex {
 		_constraints.get(2).add(12.);
 	
 		_obj = new MatrixSimplex(_coefficiants, _constraints);	
-		_matrice = (ArrayList<ArrayList<Double>>) Explorateur.getField(_obj, "_matrice");
+		_matrix = (ArrayList<ArrayList<Double>>) Explorateur.getField(_obj, "_matrice");
 	}
 	
 	@After
@@ -61,7 +61,7 @@ public class TestMatrixSimplex {
 		_coefficiants = null;
 		_constraints = null;
 		_obj = null;
-		_matrice = null;
+		_matrix = null;
 	}
 	
 	@Test
@@ -152,7 +152,7 @@ public class TestMatrixSimplex {
 	
 	@Test
 	public void testIsValid2() {
-		_matrice.get(0).set(3, 999.);
+		_matrix.get(0).set(3, 999.);
 		assertFalse(_obj.isValid());
 	}
 	
@@ -173,6 +173,6 @@ public class TestMatrixSimplex {
 	private List<Double> _coefficiants;
 	private List<List<Double>> _constraints;
 	private MatrixSimplex _obj;
-	private ArrayList<ArrayList<Double>> _matrice;
+	private ArrayList<ArrayList<Double>> _matrix;
 
 }

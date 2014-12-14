@@ -14,7 +14,7 @@ import be.helha.D1.calculatorSimplex.src.model.MatrixSimplex;
 public class TestAlgorithmSimplex {
 	
 	// Attribute
-	private	MatrixSimplex _matrice;
+	private	MatrixSimplex _matrix;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -57,12 +57,12 @@ public class TestAlgorithmSimplex {
 		contraintes.get(2).add(5.);
 		contraintes.get(2).add(15.);
 	
-		_matrice = new MatrixSimplex(coefficiants, contraintes);
+		_matrix = new MatrixSimplex(coefficiants, contraintes);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		_matrice = null;
+		_matrix = null;
 	}
 
 	@Test
@@ -76,7 +76,7 @@ public class TestAlgorithmSimplex {
 			Method method = AlgorithmSimplex.class.getDeclaredMethod("searchPivotColumn", MatrixSimplex.class);
 			
 			method.setAccessible(true);
-			assertTrue((int)method.invoke(null, _matrice) == 2);
+			assertTrue((int)method.invoke(null, _matrix) == 2);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -87,7 +87,7 @@ public class TestAlgorithmSimplex {
 	@Test
 	public void testdoIteration() {
 		try {
-			MatrixSimplex oracle = _matrice.clone();
+			MatrixSimplex oracle = _matrix.clone();
 			
 			oracle.setElement(0, 0, 11./5.);
 			oracle.setElement(0, 1, 6./5.);
@@ -125,7 +125,7 @@ public class TestAlgorithmSimplex {
 			Method method = AlgorithmSimplex.class.getDeclaredMethod("doIteration", MatrixSimplex.class, int.class);
 			
 			method.setAccessible(true);
-			testing = (MatrixSimplex) method.invoke(null, _matrice, 2);
+			testing = (MatrixSimplex) method.invoke(null, _matrix, 2);
 			assertTrue(oracle.equals(testing));
 		}
 		catch (Exception e) {
@@ -140,7 +140,7 @@ public class TestAlgorithmSimplex {
 			Method method = AlgorithmSimplex.class.getDeclaredMethod("searchPivotLine", MatrixSimplex.class, int.class);
 			
 			method.setAccessible(true);
-			assertTrue((int)method.invoke(null, _matrice, 2) == 2);
+			assertTrue((int)method.invoke(null, _matrix, 2) == 2);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -156,8 +156,8 @@ public class TestAlgorithmSimplex {
 			Method method = AlgorithmSimplex.class.getDeclaredMethod("setUnitPivot", MatrixSimplex.class, int.class, int.class);
 	
 			method.setAccessible(true);
-			method.invoke(null, _matrice, 2, 2);
-			testing = _matrice.getLine(2);
+			method.invoke(null, _matrix, 2, 2);
+			testing = _matrix.getLine(2);
 			assertArrayEquals(oracle, testing, 0.0005);
 		}
 		catch (Exception e) {
@@ -174,11 +174,11 @@ public class TestAlgorithmSimplex {
 			Method method = AlgorithmSimplex.class.getDeclaredMethod("setUnitPivot", MatrixSimplex.class, int.class, int.class);
 			
 			method.setAccessible(true);
-			method.invoke(null, _matrice, 2, 2);
+			method.invoke(null, _matrix, 2, 2);
 			method = AlgorithmSimplex.class.getDeclaredMethod("substractLine", MatrixSimplex.class, int.class, int.class, int.class);
 			method.setAccessible(true);
-			method.invoke(null, _matrice, 0, 2, 2);
-			testing = _matrice.getLine(0);
+			method.invoke(null, _matrix, 0, 2, 2);
+			testing = _matrix.getLine(0);
 			assertArrayEquals(oracle, testing, 0.0005);
 		}
 		catch (Exception e) {

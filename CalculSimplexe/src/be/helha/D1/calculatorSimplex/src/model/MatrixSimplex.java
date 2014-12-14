@@ -17,40 +17,49 @@ public class MatrixSimplex implements Serializable {
 
 	// Constructor
 	public MatrixSimplex(List<Double> coefficiant, List<List<Double>> constraint) throws WrongMatrixSimplexException {
-		_matrice = new ArrayList<ArrayList<Double>>();
+		_matrix = new ArrayList<ArrayList<Double>>();
+		if (coefficiant == null || constraint == null) {
+			throw new WrongMatrixSimplexException("coefficiant ou contrainte incorrect");
+		}
 		_n = coefficiant.size();
 		_m = constraint.size();
 		
-		if (_n != constraint.get(0).size() - 1) {
-			throw new WrongMatrixSimplexException();
-		}
 		int tmp = 0;
 		for (int i = 0; i < _m; i++) {
-			_matrice.add(new ArrayList<Double>());
+			if (_n != constraint.get(i).size() - 1) {
+				throw new WrongMatrixSimplexException("le nombre de coefficiant ne corespond pas au contrainte");
+			}
+			_matrix.add(new ArrayList<Double>());
 			 for (int j = 0; j < _n; j++) {
-				_matrice.get(i).add(new Double(constraint.get(i).get(j)));
+				 if (constraint.get(i).get(j) < 0) {
+					 throw new WrongMatrixSimplexException("contrainte négative");
+				 }
+				_matrix.get(i).add(new Double(constraint.get(i).get(j)));
 			}
 			for (int j = 0; j < _m; j++) {
-				_matrice.get(i).add((tmp == j) ? 1. : 0.);
+				_matrix.get(i).add((tmp == j) ? 1. : 0.);
 			}
 			tmp++;
-			_matrice.get(i).add(new Double(constraint.get(i).get(_n)));
+			_matrix.get(i).add(new Double(constraint.get(i).get(_n)));
 		}
-		_matrice.add(new ArrayList<Double>());
+		_matrix.add(new ArrayList<Double>());
 		for (int i = 0; i < coefficiant.size(); i++) {
-			_matrice.get(_m).add(new Double(coefficiant.get(i)));
+			 if (coefficiant.get(i) < 0) {
+				 throw new WrongMatrixSimplexException("coefficiant négatif");
+			 }
+			_matrix.get(_m).add(new Double(coefficiant.get(i)));
 		}
 		for (int i = 0; i < _m + 1; i++) {
-			_matrice.get(_m).add(0.);
+			_matrix.get(_m).add(0.);
 		}
 	}
 	
 	private MatrixSimplex(MatrixSimplex src) {
-		_matrice = new ArrayList<ArrayList<Double>>();
+		_matrix = new ArrayList<ArrayList<Double>>();
 		for (int i = 0; i < src.getNbLine(); i++) {
-			_matrice.add(new ArrayList<Double>());
+			_matrix.add(new ArrayList<Double>());
 			for (int j = 0; j < src.getNbColumn(); j++) {
-				_matrice.get(i).add(new Double(src.getElement(i, j)));
+				_matrix.get(i).add(new Double(src.getElement(i, j)));
 			}
 		}
 		_n = src._n;
@@ -67,7 +76,7 @@ public class MatrixSimplex implements Serializable {
 	}
 	
 	public Double getZ() {
-		Double z = _matrice.get(getNbLine() - 1).get(getNbColumn() - 1);
+		Double z = _matrix.get(getNbLine() - 1).get(getNbColumn() - 1);
 		
 		return (z < 0) ? z * -1. : z;
 	}
@@ -79,7 +88,7 @@ public class MatrixSimplex implements Serializable {
 		double[] res = new double[getNbColumn()];
 		
 		for (int i = 0; i < getNbColumn(); i++) {
-			res[i] = _matrice.get(index).get(i);
+			res[i] = _matrix.get(index).get(i);
 		}
 		return res;
 	}
@@ -95,7 +104,7 @@ public class MatrixSimplex implements Serializable {
 		
 		double[] res = new double[getNbLine()];
 		for (int i = 0; i < getNbLine(); i++) {
-			res[i] = _matrice.get(i).get(index);
+			res[i] = _matrix.get(i).get(index);
 		}
 		return res;
 	}
@@ -132,11 +141,11 @@ public class MatrixSimplex implements Serializable {
 	}
 	
 	public int getNbLine() {
-		return _matrice.size();
+		return _matrix.size();
 	}
 	
 	public int getNbColumn() {
-		return _matrice.get(0).size();
+		return _matrix.get(0).size();
 	}
 	
 	public Double getElement(int line, int column) {
@@ -144,7 +153,7 @@ public class MatrixSimplex implements Serializable {
 				column < 0 || column >= getNbColumn()) {
 			return null;
 		}
-		return _matrice.get(line).get(column);
+		return _matrix.get(line).get(column);
 	}
 	
 	// Setter
@@ -153,7 +162,7 @@ public class MatrixSimplex implements Serializable {
 				column < 0 || column >= getNbColumn()) {
 			throw new WrongIndexMatrix();
 		}
-		_matrice.get(line).set(column, element);
+		_matrix.get(line).set(column, element);
 	}
 	
 	// Method
@@ -165,7 +174,10 @@ public class MatrixSimplex implements Serializable {
 	public boolean isValid() {
 		int nb = 0;
 		
-		for (int i = 0; i < getNbColumn() - 1; i++) {
+		if (_m != getNbLine() - 1) {
+			return false;
+		}
+		for (int i = 0; i < getNbColumn(); i++) {
 			double[] column  = getColumn(i);
 			int nbZero = 0;
 			int nbOne = 0;
@@ -251,7 +263,7 @@ public class MatrixSimplex implements Serializable {
 
 
 	// Attribute
-	private ArrayList<ArrayList<Double>> _matrice;
+	private ArrayList<ArrayList<Double>> _matrix;
 	private int _n; // Nombre de coefficiant
 	private int _m; // Nombre de contraite
 }
