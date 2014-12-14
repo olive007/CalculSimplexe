@@ -82,39 +82,39 @@ public class TestMatrixSimplex {
 	@Test
 	public void testGetLine() {
 		int size = _constraints.get(0).size();
-		Double[] line = new Double[size * 2 - 1];
+		double[] oracle = new double[size * 2 - 1];
 	
 		for (int i = 0; i < size - 1; i++) {
-			line[i] = new Double(_constraints.get(0).get(i));
-			line[i + size - 1] = (i == 0) ? 1. : 0.;
+			oracle[i] = _constraints.get(0).get(i);
+			oracle[i + size - 1] = (i == 0) ? 1. : 0.;
 		}
-		line[size * 2 - 2] = new Double(_constraints.get(0).get(size - 1));
-		assertArrayEquals(line, _obj.getLine(0));
+		oracle[size * 2 - 2] = _constraints.get(0).get(size - 1);
+		assertArrayEquals(oracle, _obj.getLine(0), 0.00005);
 	}
 	
 	@Test
 	public void testGetColumn() {
 		int size = _constraints.size();
-		Double[] column = new Double[size + 1];
+		double[] oracle = new double[size + 1];
 		
 		for (int i = 0; i < size; i++) {
-			column[i] = new Double(_constraints.get(i).get(0));
+			oracle[i] = new Double(_constraints.get(i).get(0));
 		}
-		column[size] = new Double(_coefficiants.get(0));
-		assertArrayEquals(column, _obj.getColumn(0));
+		oracle[size] = new Double(_coefficiants.get(0));
+		assertArrayEquals(oracle, _obj.getColumn(0), 0.00005);
 	}
 	
 	@Test
 	public void getVarInBase() {
-		Double[] varInBase = new Double[_constraints.size() + _coefficiants.size()];
+		double[] oracle = new double[_constraints.size() + _coefficiants.size()];
 		
 		for (int i = 0; i < _coefficiants.size(); i++) {
-			varInBase[i] = 0.;
+			oracle[i] = 0.;
 		}
 		for (int i = 0; i < _constraints.size(); i++) {
-			varInBase[_coefficiants.size() + i] = _constraints.get(i).get(_constraints.get(i).size() - 1);
+			oracle[_coefficiants.size() + i] = _constraints.get(i).get(_constraints.get(i).size() - 1);
 		}
-		assertArrayEquals(varInBase, _obj.getVarInBase());
+		assertArrayEquals(oracle, _obj.getVarInBase(), 0.00005);
 	}
 	
 	@Test
@@ -158,10 +158,10 @@ public class TestMatrixSimplex {
 	
 	@Test
 	public void testEquals() {
-		_matrice.get(0).set(3, 999.);
 		assertTrue(_obj.equals((Object) _obj));
 	}
 	
+	@Ignore
 	@Test
 	public void testToString() {
 		System.out.println(_obj.toString());

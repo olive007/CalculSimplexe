@@ -14,9 +14,7 @@ import be.helha.D1.calculatorSimplex.src.model.MatrixSimplex;
 public class TestAlgorithmSimplex {
 	
 	// Attribute
-	private List<Double> _coefficiants;
-	private List<List<Double>> _contraintes;
-	private	MatrixSimplex _objMat;
+	private	MatrixSimplex _matrice;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -30,83 +28,162 @@ public class TestAlgorithmSimplex {
 
 	@Before
 	public void setUp() throws Exception {
-		_coefficiants = new ArrayList<>();
-		_contraintes = new ArrayList<List<Double>>();
+		List<Double> coefficiants;
+		List<List<Double>> contraintes;
 		
-		_coefficiants.add(5.);
-		_coefficiants.add(6.);
-		_coefficiants.add(7.);
+		coefficiants = new ArrayList<>();
+		contraintes = new ArrayList<List<Double>>();
+		
+		coefficiants.add(5.);
+		coefficiants.add(6.);
+		coefficiants.add(7.);
 		
 		for (int i = 0; i < 3; i++) {
-			_contraintes.add(i, new ArrayList<Double>());
+			contraintes.add(i, new ArrayList<Double>());
 		}
 		
-		_contraintes.get(0).add(3.);
-		_contraintes.get(0).add(2.);
-		_contraintes.get(0).add(4.);
-		_contraintes.get(0).add(18.);
+		contraintes.get(0).add(3.);
+		contraintes.get(0).add(2.);
+		contraintes.get(0).add(4.);
+		contraintes.get(0).add(24.);
 		
-		_contraintes.get(1).add(4.);
-		_contraintes.get(1).add(1.);
-		_contraintes.get(1).add(2.);
-		_contraintes.get(1).add(24.);
+		contraintes.get(1).add(4.);
+		contraintes.get(1).add(1.);
+		contraintes.get(1).add(2.);
+		contraintes.get(1).add(24.);
 		
-		_contraintes.get(2).add(1.);
-		_contraintes.get(2).add(1.);
-		_contraintes.get(2).add(3.);
-		_contraintes.get(2).add(12.);
+		contraintes.get(2).add(1.);
+		contraintes.get(2).add(1.);
+		contraintes.get(2).add(5.);
+		contraintes.get(2).add(15.);
 	
-		_objMat = new MatrixSimplex(_coefficiants, _contraintes);
+		_matrice = new MatrixSimplex(coefficiants, contraintes);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		_coefficiants = null;
-		_contraintes = null;
-		_objMat = null;
+		_matrice = null;
 	}
 
-	@Ignore
+	@Test
+	public void testCalcul() {
+		
+	}
+	
 	@Test
 	public void testSearchPivotColumn() {
 		try {
 			Method method = AlgorithmSimplex.class.getDeclaredMethod("searchPivotColumn", MatrixSimplex.class);
+			
 			method.setAccessible(true);
-			assertTrue((int)method.invoke(null, _objMat) == 2);
+			assertTrue((int)method.invoke(null, _matrice) == 2);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 			assertTrue(false);
 		}
 	}
-	@Ignore
+	
+	@Test
+	public void testdoIteration() {
+		try {
+			MatrixSimplex oracle = _matrice.clone();
+			
+			oracle.setElement(0, 0, 11./5.);
+			oracle.setElement(0, 1, 6./5.);
+			oracle.setElement(0, 2, 0.);
+			oracle.setElement(0, 3, 1.);
+			oracle.setElement(0, 4, 0.);
+			oracle.setElement(0, 5, -4./5.);
+			oracle.setElement(0, 6, 12.);
+			
+			oracle.setElement(1, 0, 18./5.);
+			oracle.setElement(1, 1, 3./5.);
+			oracle.setElement(1, 2, 0.);
+			oracle.setElement(1, 3, 0.);
+			oracle.setElement(1, 4, 1.);
+			oracle.setElement(1, 5, -2./5.);
+			oracle.setElement(1, 6, 18.);
+			
+			oracle.setElement(2, 0, 1./5.);
+			oracle.setElement(2, 1, 1./5.);
+			oracle.setElement(2, 2, 1.);
+			oracle.setElement(2, 3, 0.);
+			oracle.setElement(2, 4, 0.);
+			oracle.setElement(2, 5, 1./5.);
+			oracle.setElement(2, 6, 3.);
+			
+			oracle.setElement(3, 0, 18./5.);
+			oracle.setElement(3, 1, 23./5.);
+			oracle.setElement(3, 2, 0.);
+			oracle.setElement(3, 3, 0.);
+			oracle.setElement(3, 4, 0.);
+			oracle.setElement(3, 5, -7./5.);
+			oracle.setElement(3, 6, -21.);
+			
+			MatrixSimplex testing;
+			Method method = AlgorithmSimplex.class.getDeclaredMethod("doIteration", MatrixSimplex.class, int.class);
+			
+			method.setAccessible(true);
+			testing = (MatrixSimplex) method.invoke(null, _matrice, 2);
+			assertTrue(oracle.equals(testing));
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
+	}
+	
 	@Test
 	public void testSearchPivotLine() {
 		try {
-			Method method = AlgorithmSimplex.class.getDeclaredMethod("searchPivotLine", MatrixSimplex.class);
+			Method method = AlgorithmSimplex.class.getDeclaredMethod("searchPivotLine", MatrixSimplex.class, int.class);
+			
 			method.setAccessible(true);
-			assertTrue((int)method.invoke(null, _objMat) == 2);
+			assertTrue((int)method.invoke(null, _matrice, 2) == 2);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 			assertTrue(false);
 		}
 	}
-	@Ignore
-	@Test
-	public void testCalculPivot(){
-		//fail("Not yet implemented");
-		assertTrue(AlgorithmSimplex.calculPivot(_objMat,2,2)==3);
-	}
-	@Ignore
+
 	@Test
 	public void testSetPivotUnit(){
-		int indLinePivot = 2;
-		int indColPivot = 2;
-		List<Double> linePivot = new ArrayList<Double>();
-		linePivot.add(1./3.);linePivot.add(1./3.);linePivot.add(1.);
-		linePivot.add(0.);linePivot.add(0.);linePivot.add(1./3.);linePivot.add(4.);
-		AlgorithmSimplex.setPivotUnit(_objMat, indLinePivot, indColPivot);
-		assertTrue(_matrice.get(2).containsAll(linePivot));
+		try {
+			double[] oracle = {1./5., 1./5., 1., 0., 0., 1./5., 3.};
+			double[] testing;
+			Method method = AlgorithmSimplex.class.getDeclaredMethod("setUnitPivot", MatrixSimplex.class, int.class, int.class);
+	
+			method.setAccessible(true);
+			method.invoke(null, _matrice, 2, 2);
+			testing = _matrice.getLine(2);
+			assertArrayEquals(oracle, testing, 0.0005);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
+	}
+
+	@Test
+	public void testSubstractLine() {
+		try {
+			double[] oracle = {11./5., 6./5., 0., 1., 0., -4./5., 12.};
+			double[] testing;
+			Method method = AlgorithmSimplex.class.getDeclaredMethod("setUnitPivot", MatrixSimplex.class, int.class, int.class);
+			
+			method.setAccessible(true);
+			method.invoke(null, _matrice, 2, 2);
+			method = AlgorithmSimplex.class.getDeclaredMethod("substractLine", MatrixSimplex.class, int.class, int.class, int.class);
+			method.setAccessible(true);
+			method.invoke(null, _matrice, 0, 2, 2);
+			testing = _matrice.getLine(0);
+			assertArrayEquals(oracle, testing, 0.0005);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
 	}
 }

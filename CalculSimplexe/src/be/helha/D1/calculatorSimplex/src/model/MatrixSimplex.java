@@ -72,43 +72,45 @@ public class MatrixSimplex implements Serializable {
 		return (z < 0) ? z * -1. : z;
 	}
 	
-	public Double[] getLine(int index) {
+	public double[] getLine(int index) {
 		if (index < 0 && index >= getNbLine()) {
 			return null;
 		}
-		Double[] res = new Double[getNbColumn()];
+		double[] res = new double[getNbColumn()];
 		
-		_matrice.get(index).toArray(res);
+		for (int i = 0; i < getNbColumn(); i++) {
+			res[i] = _matrice.get(index).get(i);
+		}
 		return res;
 	}
 	
-	public Double[] getLastLine() {
+	public double[] getLastLine() {
 		return getLine(getNbLine() - 1);
 	}
 	
-	public Double[] getColumn(int index) {
+	public double[] getColumn(int index) {
 		if (index < 0 && index >= getNbColumn()) {
 			return null;
 		}
 		
-		Double[] res = new Double[getNbLine()];
+		double[] res = new double[getNbLine()];
 		for (int i = 0; i < getNbLine(); i++) {
 			res[i] = _matrice.get(i).get(index);
 		}
 		return res;
 	}
 	
-	public Double[] getLastColumn() {
+	public double[] getLastColumn() {
 		return getColumn(getNbColumn() - 1);
 	}
 	
-	public Double[] getVarInBase() {
-		Double[] res = new Double[getNbColumn() - 1];
-		Double[] lastColumn = getLastColumn();
+	public double[] getVarInBase() {
+		double[] res = new double[getNbColumn() - 1];
+		double[] lastColumn = getLastColumn();
 		
 		for (int i = 0; i < getNbColumn() - 1; i++) {
 			res[i] = 0.;
-			Double[] column = getColumn(i);
+			double[] column = getColumn(i);
 			int pos = 0;
 			int nbZero = 0;
 			int nbOne = 0;
@@ -164,7 +166,7 @@ public class MatrixSimplex implements Serializable {
 		int nb = 0;
 		
 		for (int i = 0; i < getNbColumn() - 1; i++) {
-			Double[] column  = getColumn(i);
+			double[] column  = getColumn(i);
 			int nbZero = 0;
 			int nbOne = 0;
 			
@@ -191,7 +193,7 @@ public class MatrixSimplex implements Serializable {
 		String res = "";
 		
 		for (int i = 0; i < getNbLine(); i++) {
-			Double[] line = getLine(i);
+			double[] line = getLine(i);
 			
 			res += "| ";
 			for (int j = 0; j < line.length; j++) {
@@ -213,7 +215,7 @@ public class MatrixSimplex implements Serializable {
 				res += "-------\r\n";
 			}
 		}
-		Double[] sb = getVarInBase();
+		double[] sb = getVarInBase();
 		
 		res += "\r\nVariable dans la base : (";
 		for (int i = 0; i < sb.length; i++) {
@@ -231,16 +233,17 @@ public class MatrixSimplex implements Serializable {
 	public boolean equals(Object o) {
 		if (o.getClass()==MatrixSimplex.class) {
 			MatrixSimplex tmp = (MatrixSimplex) o;
-			if (_m != tmp._m || _n != tmp._n) {
+			
+			if (_m != tmp._m && _n != tmp._n) {
 				return false;
 			}
 			for (int i = 0; i < getNbLine(); i++) {
 				for (int j = 0; j < getNbColumn(); j++) {
-					if (getElement(i, j) != tmp.getElement(i, j)) {
+					if (getElement(i, j) - tmp.getElement(i, j) >= 0.00005) {
 						return false;
 					}
 				}
-			}
+			}	
 			return true;
 		}
 		return false;
