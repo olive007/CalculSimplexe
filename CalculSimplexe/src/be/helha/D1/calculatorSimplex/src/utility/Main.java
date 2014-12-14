@@ -1,6 +1,5 @@
-package be.helha.D1.calculatorSimplex.src;
+package be.helha.D1.calculatorSimplex.src.utility;
 
-import be.helha.D1.calculatorSimplex.src.utility.Controller;
 
 public class Main {
 

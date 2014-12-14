@@ -1,12 +1,10 @@
-package be.helha.D1.calculatorSimplex.src.view;
+package be.helha.D1.calculatorSimplex.src.utility;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 import be.helha.D1.calculatorSimplex.src.model.MatrixSimplex;
-import be.helha.D1.calculatorSimplex.src.utility.Entry;
-import be.helha.D1.calculatorSimplex.src.utility.Menu;
 
 public class Writer {
 	

@@ -1,8 +1,6 @@
 package be.helha.D1.calculatorSimplex.src.utility;
 
 import be.helha.D1.calculatorSimplex.src.exception.WrongEntryException;
-import be.helha.D1.calculatorSimplex.src.view.Reader;
-import be.helha.D1.calculatorSimplex.src.view.Writer;
 
 public class Controller {
 
