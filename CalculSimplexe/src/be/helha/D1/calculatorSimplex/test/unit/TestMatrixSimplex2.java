@@ -11,7 +11,7 @@ import test.Explorateur;
 import be.helha.D1.calculatorSimplex.src.exception.WrongIndexMatrix;
 import be.helha.D1.calculatorSimplex.src.model.MatrixSimplex;
 
-public class TestMatrixSimplex {
+public class TestMatrixSimplex2 {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -29,27 +29,23 @@ public class TestMatrixSimplex {
 		_coefficiants = new ArrayList<>();
 		_constraints = new ArrayList<List<Double>>();
 		
-		_coefficiants.add(5.);
 		_coefficiants.add(6.);
-		_coefficiants.add(7.);
+		_coefficiants.add(9.);
 		
 		for (int i = 0; i < 3; i++) {
 			_constraints.add(i, new ArrayList<Double>());
 		}
 
-		_constraints.get(0).add(3.);
+		_constraints.get(0).add(1.);
 		_constraints.get(0).add(2.);
-		_constraints.get(0).add(4.);
 		_constraints.get(0).add(18.);
 		
-		_constraints.get(1).add(4.);
-		_constraints.get(1).add(1.);
 		_constraints.get(1).add(2.);
-		_constraints.get(1).add(24.);
+		_constraints.get(1).add(1.);
+		_constraints.get(1).add(20.);
 		
 		_constraints.get(2).add(1.);
 		_constraints.get(2).add(1.);
-		_constraints.get(2).add(3.);
 		_constraints.get(2).add(12.);
 	
 		_obj = new MatrixSimplex(_coefficiants, _constraints);	

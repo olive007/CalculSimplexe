@@ -194,7 +194,7 @@ public class MatrixSimplex implements Serializable {
 				nb++;
 			}
 		}
-		if (nb != _n) {
+		if (nb != _m) {
 			return false;
 		}
 		return true;
