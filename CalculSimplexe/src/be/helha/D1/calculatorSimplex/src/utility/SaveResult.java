@@ -3,6 +3,17 @@ package be.helha.D1.calculatorSimplex.src.utility;
 import be.helha.D1.calculatorSimplex.src.exception.WrongEntryException;
 import be.helha.D1.calculatorSimplex.src.model.MatrixSimplex;
 
+/**
+ * 
+ * @author Olivier
+ * 
+ * Cette classe permet de choisir dans quel format de fichier il faut écrire le fichier
+ * 
+ * C'est aussi une généalisation car l'atribute "_resultat"
+ * est indentique aux classe appelé a partir de ce pointz
+ *
+ */
+
 public class SaveResult implements EntryInterface {
 
 	public SaveResult(MatrixSimplex[] resultat) {

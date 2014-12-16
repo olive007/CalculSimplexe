@@ -7,6 +7,15 @@ import be.helha.D1.calculatorSimplex.src.exception.WrongMatrixSimplexException;
 import be.helha.D1.calculatorSimplex.src.model.AlgorithmSimplex;
 import be.helha.D1.calculatorSimplex.src.model.MatrixSimplex;
 
+/**
+ * 
+ * @author Olivier
+ * 
+ * Cette classe est utilisé afin de permetre à l'utilisateur
+ * de rentrer directement les données afin de les calculer.
+ *
+ */
+
 public class CalculLive implements EntryInterface {
 
 	public int action() {
