@@ -131,5 +131,23 @@ public class Reader {
 		}
 		return res;
 	}
+
+	public String readFilename() {
+		String res = "";
+		
+		do {
+			System.out.print("Entrer un nom de fichier :");
+			if (_sc.hasNextLine()) {
+				res = _sc.nextLine();
+				
+			}
+			else {
+				System.err.println("Ceci n'est pas un nom");
+				_sc.nextLine();
+			}
+		}
+		while (res.equals(""));
+		return res;
+	}
 	
 }

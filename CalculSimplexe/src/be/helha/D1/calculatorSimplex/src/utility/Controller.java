@@ -15,9 +15,9 @@ public class Controller {
 		out.writeString("--- Calculator Symplexe ---\n");
 		out.writeString("Démarrage...\n");
 		try {
-			_mainMenu = new Menu("Menu Principal",
-					new Entry("Effectuer un calcul", new CalculLive()),
-					new Menu("Afficher les données",
+			_mainMenu = new Menu("Effectuer des calculs",
+					new Entry("Entrer les données manuellement", new CalculLive()),
+					new Menu("Récuperer les données depuis un fichier",
 							new Entry("TXT", new DisplayResultTXT()),
 							new Entry("XML", new DisplayResultXML()),
 							new Entry(9, "Retour")),

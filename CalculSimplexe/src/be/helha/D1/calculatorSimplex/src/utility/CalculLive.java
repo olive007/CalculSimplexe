@@ -37,7 +37,7 @@ public class CalculLive implements EntryInterface {
 		try {
 			menu = new Menu("Voulez-vous sauvegarder les résultats ?", 
 					new Entry("Non"),
-					new Entry("Oui", new SaveResult()));
+					new Entry("Oui", new SaveResult(res)));
 		}
 		catch (WrongEntryException e) {
 			e.printStackTrace();
