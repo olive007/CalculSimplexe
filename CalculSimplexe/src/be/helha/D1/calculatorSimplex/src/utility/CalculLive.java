@@ -9,10 +9,9 @@ import be.helha.D1.calculatorSimplex.src.model.MatrixSimplex;
 
 /**
  * 
+ * Cette classe est utilisé afin de permettre à l'utilisateur de rentrer directement les données afin de les calculer.
+ *
  * @author Olivier
- * 
- * Cette classe est utilisé afin de permetre à l'utilisateur
- * de rentrer directement les données afin de les calculer.
  *
  */
 

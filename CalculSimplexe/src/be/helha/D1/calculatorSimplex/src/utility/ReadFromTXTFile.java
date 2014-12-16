@@ -1,13 +1,17 @@
 package be.helha.D1.calculatorSimplex.src.utility;
 
 /**
- * 
- * @author Olivier
  *
  * Cette classe permet de lire des données afin de faire les calculs.
- * les données sont les coefficiant et la liste des contraintes
+ * Les données sont les coefficients et la liste des contraintes
  * 
  * Le format du fichier est TXT
+ * 
+ * Non Fini
+ * 
+ * @see ReadFromXMLFile
+ * 
+ * @author Olivier
  * 
  */
 public class ReadFromTXTFile implements EntryInterface {

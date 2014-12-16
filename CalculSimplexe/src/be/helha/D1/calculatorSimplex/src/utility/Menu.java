@@ -2,6 +2,18 @@ package be.helha.D1.calculatorSimplex.src.utility;
 
 import be.helha.D1.calculatorSimplex.src.exception.WrongEntryException;
 
+
+/**
+ * 
+ * Cette classe permet de construire les menus de l'application.
+ * Un menu signifie un choix de l'utilistateur.
+ * Menu est un spécialisation de Entry car une entré peut être un sous-menu.
+ *
+ * @see Entry
+ * 
+ * @author Olivier
+ * 
+ */
 public class Menu extends Entry {
 	
 	// Constructor
@@ -43,14 +55,25 @@ public class Menu extends Entry {
 	}
 	
 	// Method
+	/**
+	 * Cet methode affiche le nom de l'entrée.
+	 * C'est une redéfinition de la fonction de la classe mere
+	 */
 	public void displayEntry() {
 		Controller.out.writeEntry(this);
 	}
 	
+	/**
+	 * Cet methode affiche le menu. 
+	 */
 	public void display() {
 		Controller.out.writeMenu(this);
 	}
 	
+	/**
+	 * Elle affiche le menu puis demande de choisir une entrée.
+	 * Cet methode boucle juste l'un d'une des entrées renvoie 1.
+	 */
 	public int doAction() {
 		int error = 0;
 		boolean exit = false;

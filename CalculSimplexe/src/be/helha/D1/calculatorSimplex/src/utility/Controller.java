@@ -3,12 +3,13 @@ package be.helha.D1.calculatorSimplex.src.utility;
 import be.helha.D1.calculatorSimplex.src.exception.WrongEntryException;
 
 /**
- * 
+ *
+ * Cette classe est le départ du programme.
+ * Elle est dois être initialisé afin de pouvoir démarré le programme.
+ * Elle est aussi le point de retour.
+ *
  * @author Olivier
- *
- * Cette classe est le départ du programme elle est dois etre initialisé
- * afin de pouvoir demarré le programme
- *
+ * 
  */
 
 public class Controller {

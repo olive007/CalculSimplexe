@@ -5,6 +5,16 @@ import java.io.PrintWriter;
 
 import be.helha.D1.calculatorSimplex.src.model.MatrixSimplex;
 
+/**
+ * 
+ * Cette classe permet de :
+ * 	- Sauvegarder une matrice dans un fichier.
+ *  - Créer un matrice depuis un fichier.
+ *
+ * @author Jordan
+ * 
+ */
+
 public abstract class MatrixSimplexSerialization {
 	
 	public static boolean writeTxtFile(String filename, MatrixSimplex matrix) {

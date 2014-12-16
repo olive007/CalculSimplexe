@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.*;
 
 import test.Explorateur;
-import be.helha.D1.calculatorSimplex.src.exception.WrongIndexMatrix;
+import be.helha.D1.calculatorSimplex.src.exception.WrongIndexMatrixException;
 import be.helha.D1.calculatorSimplex.src.model.MatrixSimplex;
 
 public class TestMatrixSimplex {
@@ -134,8 +134,8 @@ public class TestMatrixSimplex {
 		assertNull(_obj.getElement(1, -1));
 	}
 	
-	@Test (expected=WrongIndexMatrix.class)
-	public void testSetElement() throws WrongIndexMatrix {
+	@Test (expected=WrongIndexMatrixException.class)
+	public void testSetElement() throws WrongIndexMatrixException {
 		_obj.setElement(1, -1, 0.);
 	}
 	

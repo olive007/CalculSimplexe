@@ -2,6 +2,18 @@ package be.helha.D1.calculatorSimplex.src.utility;
 
 import be.helha.D1.calculatorSimplex.src.exception.WrongEntryException;
 
+/**
+ * 
+ * Cette classe permet de construire les choix des différents menus de l'application.
+ * Le choix est représenté par cet classe.
+ * Une interface est passé en paramètre afin de savoir quoi faire
+ * 
+ * @see Menu
+ * @see EntryInterface
+ * 
+ * @author Olivier
+ * 
+ */
 public class Entry{
 
 	// Constructor

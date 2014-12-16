@@ -4,16 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
 /**
+ *
+ * Cette classe est une interface afin de récupérer les données depuis la console.
+ * 
+ * Vu que le projet doit être modifié afin d'utilisé avec une GUI, celle-ci sera complètement changé lors de la modification.
  * 
  * @author Olivier
- *
- * Cette classe est une interface afin de récupérer les données a l'écran.
  * 
- * Vu que le projet doit etre modifié afin d'utilisé avec une GUI, cette sera
- * completement changé lors de la modification.
- *
  */
 public class Reader {
 

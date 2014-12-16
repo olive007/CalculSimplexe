@@ -7,15 +7,15 @@ import java.io.ObjectOutputStream;
 import be.helha.D1.calculatorSimplex.src.model.MatrixSimplex;
 
 /**
+ *
+ * Cette classe est une interface afin d'afficher les données dans la console.
  * 
+ * Vu que le projet doit être modifié afin d'utilisé avec une GUI, cette sera complètement changé lors de la modification
+ *
  * @author Olivier
- *
- * Cette classe est une interface afin d'afficher les données a l'écran.
  * 
- * Vu que le projet doit etre modifié afin d'utilisé avec une GUI, cette sera
- * completement changé lors de la modification
- *
  */
+
 public class Writer {
 	
 	// Constructor

@@ -2,7 +2,17 @@ package be.helha.D1.calculatorSimplex.src.model;
 
 import java.util.ArrayList;
 
-import be.helha.D1.calculatorSimplex.src.exception.WrongIndexMatrix;
+import be.helha.D1.calculatorSimplex.src.exception.WrongIndexMatrixException;
+
+/**
+ * C'est la classe qui permet de calculer une matrice du simplex.
+ * Cette classe est abstraite.
+ * Elle fonctionne de manière totalement autonome.
+ * On as juste besoin d'appeller la méthode calcul.
+ *
+ * @author Christophe
+ * 
+ */
 
 public abstract class AlgorithmSimplex {
 	
@@ -16,9 +26,9 @@ public abstract class AlgorithmSimplex {
 		MatrixSimplex tmp = matrix;
 		
 		res.add(matrix);
-		while ((columnPivot = searchPivotColumn(tmp)) != PIVOT_NOT_FOUND) {
-			tmp = tmp.clone();
-			doIteration(tmp, columnPivot);
+		while ((columnPivot = searchPivotColumn(tmp)) != PIVOT_NOT_FOUND) { // Si le pivot n'est pas trouvé le calcul est fini
+			tmp = tmp.clone(); // On clone la matrice afin d'avoir toute les matrice intermédiaire
+			doIteration(tmp, columnPivot); // On réalise toute les opérations ci dessous
 			res.add(tmp);
 		}
 		MatrixSimplex[] tab = new MatrixSimplex[res.size()];
@@ -27,18 +37,18 @@ public abstract class AlgorithmSimplex {
 	}
 	
 	static private int searchPivotColumn(MatrixSimplex matrix) {
-		int res = PIVOT_NOT_FOUND;
 		double[] lastLine = matrix.getLastLine();
 		
 		if (lastLine == null) {
 			return PIVOT_NOT_FOUND;
 		}
 		double previous = 0.;
+		int res = PIVOT_NOT_FOUND;
 		
 		for (int i = 0; i < lastLine.length - 1; i++) {
 			if (lastLine[i] > previous) {
 				previous = lastLine[i];
-				res = i;
+				res = i; // La valeur de la colonne du pivot correspond à i
 			}
 		}
 		return res;
@@ -67,12 +77,12 @@ public abstract class AlgorithmSimplex {
 		double previous = 99999999999.;
 		
 		for (int i = 0; i < pivotColumn.length - 1; i++) {
-			if (pivotColumn[i] > 0.) {
+			if (pivotColumn[i] > 0.) { // On entre pas sinon on aura une division par 0 ou des calcul inutile
 				double tmp =  lastColumn[i] / pivotColumn[i];
 				
-				if (tmp < previous) {
+				if (tmp < previous && tmp > 0.) {
 					previous = tmp;
-					res = i;
+					res = i; // La valeur de la ligne du pivot correspond à i
 				}
 			}
 		}
@@ -86,9 +96,9 @@ public abstract class AlgorithmSimplex {
 			try {
 				double res = matrix.getElement(linePivot, j);
 				
-				matrix.setElement(linePivot, j, res / pivot);
+				matrix.setElement(linePivot, j, res / pivot); // On rend le pivot unitaire
 			}
-			catch (WrongIndexMatrix e) {
+			catch (WrongIndexMatrixException e) { // Ne doit jamais être appelé normalement
 				e.printStackTrace();
 			}
 		}
@@ -101,9 +111,9 @@ public abstract class AlgorithmSimplex {
 			try {
 				double res = matrix.getElement(indexLine, j) - multiplier * matrix.getElement(linePivot, j);
 				
-				matrix.setElement(indexLine, j, res);
+				matrix.setElement(indexLine, j, res); // On soustrait la ligne
 			}
-			catch (WrongIndexMatrix e) {
+			catch (WrongIndexMatrixException e) { // Ne doit jamais être appelé normalement
 				e.printStackTrace();
 			}
 		}

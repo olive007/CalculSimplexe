@@ -4,15 +4,29 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import be.helha.D1.calculatorSimplex.src.exception.WrongIndexMatrix;
+import be.helha.D1.calculatorSimplex.src.exception.WrongIndexMatrixException;
 import be.helha.D1.calculatorSimplex.src.exception.WrongMatrixSimplexException;
+
+
+/**
+ * Cette classe contient la matrice du simplexe.
+ * La matrice est contenue dans une Array de ArrayList de Double.
+ * On ne peut pas accédé aux ArrayList depuis l'extérieur de la classe.
+ * Pour pouvoir accéder aux éléments il faut utilisé les getters et les setters.
+ * 
+ * Elle peut envoyer des exceptions
+ * 
+ * @see WrongIndexMatrixException
+ * @see WrongMatrixSimplexException
+ * 
+ * @version 1.0 Décembre 2014
+ *
+ * @author Christophe
+ * 
+ */
 
 public class MatrixSimplex implements Serializable {
 	
-	/**
-	 * Version alpha
-	 * December 2014;
-	 */
 	private static final long serialVersionUID = 5370224255246835399L;
 
 	// Constructor
@@ -113,6 +127,14 @@ public class MatrixSimplex implements Serializable {
 		return getColumn(getNbColumn() - 1);
 	}
 	
+	/**
+	 * 
+	 * Cette méthode retourne les variable qui sont dans la base.
+	 * La ligne contient des 0 si les variable ne sont pas dans la base.
+	 * 
+	 * @return Les variables dans la base
+	 * 
+	 */
 	public double[] getVarInBase() {
 		double[] res = new double[getNbColumn() - 1];
 		double[] lastColumn = getLastColumn();
@@ -134,7 +156,7 @@ public class MatrixSimplex implements Serializable {
 				}
 			}
 			if (nbZero == column.length - 2 && nbOne == 1) {
-				res[i] = lastColumn[pos];
+				res[i] = lastColumn[pos]; // Si la colonne est unitaire on prend cet variable est dans la base
 			}
 		}
 		return res;
@@ -157,10 +179,10 @@ public class MatrixSimplex implements Serializable {
 	}
 	
 	// Setter
-	public void setElement(int line, int column, Double element) throws WrongIndexMatrix {
+	public void setElement(int line, int column, Double element) throws WrongIndexMatrixException {
 		if (line < 0 || line >= getNbLine() ||
 				column < 0 || column >= getNbColumn()) {
-			throw new WrongIndexMatrix();
+			throw new WrongIndexMatrixException();
 		}
 		_matrix.get(line).set(column, element);
 	}
@@ -260,7 +282,6 @@ public class MatrixSimplex implements Serializable {
 		}
 		return false;
 	}
-
 
 	// Attribute
 	private ArrayList<ArrayList<Double>> _matrix;

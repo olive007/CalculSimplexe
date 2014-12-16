@@ -5,13 +5,17 @@ import be.helha.D1.calculatorSimplex.src.model.MatrixSimplex;
 
 /**
  * 
+ * Cette classe permet de choisir dans quel format de fichier il faut écrire le fichier.
+ * 
+ * C'est aussi une généralisation car l'atribute "_resultat" est identique aux classe appelé depuis ce menu.
+ * 
+ * Elle renvoie toujours 1 car même si le fichier n'a pas pu être enregistré le programme doit continuer.
+ *
+ * @see SaveResultTXT
+ * @see SaveResultXML
+ * 
  * @author Olivier
  * 
- * Cette classe permet de choisir dans quel format de fichier il faut écrire le fichier
- * 
- * C'est aussi une généalisation car l'atribute "_resultat"
- * est indentique aux classe appelé a partir de ce pointz
- *
  */
 
 public class SaveResult implements EntryInterface {

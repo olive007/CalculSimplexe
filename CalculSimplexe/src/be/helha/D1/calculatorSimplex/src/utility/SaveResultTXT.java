@@ -4,11 +4,14 @@ import be.helha.D1.calculatorSimplex.src.model.MatrixSimplex;
 
 /**
  * 
+ * Cette classe permet d'ecrire les différents résultats des calculs dans un fichier.
+ * 
+ * Le format est TXT
+ * 
+ * @see SaveResult
+ * @see SaveResultXML
+ * 
  * @author Olivier
- * 
- * Cette classe permet d'ecrire les différents resultats des calcul dans un fichier
- * 
- * Le format est texte
  *
  */
 public class SaveResultTXT extends SaveResult implements EntryInterface  {
